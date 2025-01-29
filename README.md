@@ -70,9 +70,3 @@ The frontend will run at `http://localhost:4200`.
 3. Start the frontend using `ng serve --open`.
 4. Open `http://localhost:4200` in your browser.
 
-## Contributing
-Feel free to fork the repository and submit pull requests with improvements or bug fixes.
-
-## License
-This project is licensed under the MIT License.
-
