@@ -70,3 +70,6 @@ The frontend will run at `http://localhost:4200`.
 3. Start the frontend using `ng serve --open`.
 4. Open `http://localhost:4200` in your browser.
 
+## Additional Information
+
+- **Steps.docx**: A document containing a detailed step-by-step guide of the development process followed in this project. It serves as a project report, outlining the methodologies, setup, and other essential details.
