@@ -1,0 +1,90 @@
+<div class="min-h-screen bg-gray-100">
+  <!-- Navigation Section -->
+  <nav class="navigation">
+    <h1 class="navigation-title">Equadis Test</h1>
+    <div class="navigation-actions">
+      <span class="user-name">{{ name }}</span>
+      <button class="logout-button" (click)="logout()">Log Out</button>
+    </div>
+  </nav><br>
+
+  <!-- Banks Section -->
+  <main class="banks">
+    <div class="bank-card">
+      <button class="add-button" (click)="initializeNewBankAccount()">
+        <i class="fas fa-plus"></i>
+      </button>
+
+      <div class="bank-list">
+        <div *ngFor="let bank of banks; let i = index" class="bank-item" (click)="selectBank(bank)">
+          <div class="bank-details">
+            <span class="bank-title">Bank {{i+1}}</span>
+            <span class="bank-amount">Amount: ${{bank.amount}}</span>
+          </div>
+          <button class="delete-button" (click)="deleteBank(bank.bankAccountID)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Transaction Section -->
+  <main class="transactions" *ngIf="selectedBank">
+    <div class="transaction-card">
+      <button class="add-transaction-button" (click)="toggleTransactionForm()">
+        <i class="fas fa-plus"></i>
+      </button>
+
+      <div *ngIf="errorMessage" class="alert alert-error fade-out" role="alert">
+        {{ errorMessage }}
+      </div>      
+
+      <!-- Add Transaction Form -->
+      <div class="add-transaction-form" [style.display]="showTransactionForm ? 'block' : 'none'">
+        <form [formGroup]="transactionForm" (ngSubmit)="saveTransaction()">
+          <select formControlName="categoryID">
+            <option value="">Select Category</option>
+            <option *ngFor="let cat of categories" [value]="cat.categoryID">
+              {{cat.name}}
+            </option>
+          </select>
+          <select formControlName="type">
+            <option value="">Select Type</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <input type="number" placeholder="Amount" formControlName="amount">
+          <button type="submit" [disabled]="!transactionForm.valid">Save Transaction</button>
+        </form>
+      </div>
+
+      <div class="transaction-list">
+        <div *ngFor="let transaction of selectedBank?.transactions; let i = index" 
+             class="transaction-item"
+             [ngClass]="{'transaction-income': transaction.type === 'income', 
+                        'transaction-expense': transaction.type === 'expense'}">
+          <div class="transaction-details">
+            <div class="transaction-category">
+              Transaction {{i+1}}
+              <span style="float: right;">Category: {{transaction.categoryName}}</span>
+            </div>
+            <hr style="margin: 8px 0; border: 0.5px solid rgba(0, 0, 0, 0.1);">
+            <!-- Added date display here -->
+            <div class="transaction-date" style="font-size: 0.9em; color: rgba(0, 0, 0, 0.6); margin: 4px 0;">
+              Date: {{transaction.createdAt | date:'medium'}}
+            </div>
+            <hr style="margin: 8px 0; border: 0.5px solid rgba(0, 0, 0, 0.1);">
+            <div class="transaction-type">
+              Type: {{transaction.type}}
+              <span style="float: right;">Amount: ${{transaction.amount}}</span>
+            </div>
+          </div>
+          <button class="delete-button" (click)="deleteTransaction(transaction.transactionID)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+      </div>
+  </main>
+</div>

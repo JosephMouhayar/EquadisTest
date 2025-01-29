@@ -1,0 +1,315 @@
+.min-h-screen {
+  min-height: 100vh;
+  min-width: 100vh;
+  background-color: white;
+}
+
+/* Main Layout */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation Section */
+.navigation {
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navigation-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: rgba(0, 30, 50, 0.8);
+}
+
+.navigation-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: rgba(0, 30, 50, 0.7);
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: rgba(0, 30, 50, 0.7);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+}
+
+.logout-button:hover {
+  color: rgba(0, 30, 50, 1);
+}
+
+/* banks Section */
+.banks {
+  flex: 1;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.bank-card {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 48rem;
+  max-height: 350px;
+  overflow-y: auto;
+  margin: 0 auto;
+  position: relative; /* Add relative positioning */
+}
+
+.add-button {
+  position: absolute; /* Absolute positioning for top-right */
+  top: 10px; /* Adjust the top distance */
+  right: 10px; /* Adjust the right distance */
+  background-color: #4CAF50; /* Green background for the button */
+  color: white; /* White icon color */
+  border: none; /* Remove default button border */
+  padding: 10px;
+  border-radius: 50%; /* Circular button */
+  font-size: 20px; /* Adjust icon size */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.bank-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px; /* Adjust the height to show only 3 banks */
+  overflow-y: auto; /* Make the list scrollable */
+  gap: 1rem;
+  padding-right: 10px; /* Optional: Add some padding to avoid scrollbar touching the content */
+  margin-top: 40px; /* Adjust space for better alignment */
+}
+
+.bank-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(240, 240, 240, 1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.bank-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bank-title {
+  font-weight: 500;
+  color: rgba(0, 30, 50, 0.8);
+}
+
+.bank-amount {
+  color: rgba(0, 30, 50, 0.5);
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: rgba(255, 0, 0, 0.7);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+.delete-button:hover {
+  color: rgba(255, 0, 0, 1);
+}
+
+/* Transaction Section */
+.transactions {
+  flex: 1;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+}
+
+.transaction-card {
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 48rem;
+  max-height: 600px;
+  overflow-y: auto;
+  margin: 30px auto;
+  position: relative; /* Add relative positioning */
+}
+
+.add-transaction-button {
+  position: absolute; /* Absolute positioning for top-right */
+  top: 10px; /* Adjust the top distance */
+  right: 10px; /* Adjust the right distance */
+  background-color: #4CAF50; /* Green background for the button */
+  color: white; /* White icon color */
+  border: none; /* Remove default button border */
+  padding: 10px;
+  border-radius: 50%; /* Circular button */
+  font-size: 20px; /* Adjust icon size */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-transaction-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.transaction-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 300px; /* Adjust the height to show only 3 transactions */
+  overflow-y: auto; /* Make the list scrollable */
+  gap: 1rem;
+  padding-right: 10px; /* Optional: Add some padding to avoid scrollbar touching the content */
+  margin-top: 40px; /* Adjust space for better alignment */
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.transaction-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.transaction-category {
+  font-weight: 500;
+  color: rgba(0, 30, 50, 0.8);
+}
+
+.transaction-type {
+  color: rgba(0, 30, 50, 0.5);
+}
+
+.transaction-income {
+  background-color: rgba(144, 238, 144, 0.3); /* Light green background for income */
+  border-left: 5px solid green;
+}
+
+.transaction-expense {
+  background-color: rgba(255, 99, 71, 0.3); /* Light red background for expenses */
+  border-left: 5px solid red;
+}
+
+.add-transaction-form {
+  display: none; /* Initially hidden */
+  margin-top: 40px;
+  padding: 1rem;
+  background-color: rgba(240, 240, 240, 1);
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-transaction-form input,
+.add-transaction-form select,
+.add-transaction-form button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+.add-transaction-form input[type="number"] {
+  width: 100%;
+  box-sizing: border-box; /* Ensures padding doesn't affect the width calculation */
+}
+
+.add-transaction-form button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.add-transaction-form button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+@media (max-width: 768px) {
+  .banks, .transactions {
+    padding: 1rem;
+  }
+
+  .bank-card, .transaction-card {
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .bank-item, .transaction-item {
+    padding: 0.75rem;
+  }
+}
+
+/* Success alert */
+.alert-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Error alert */
+.alert-error {
+  color: #f44336;
+}
+
+/* Information alert */
+.alert-info {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* General styling for the alert text */
+.alert p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.fade-out {
+  animation: fadeOut 5s linear forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
