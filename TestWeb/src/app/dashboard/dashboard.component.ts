@@ -53,7 +53,8 @@ export class DashboardComponent implements OnInit {
 
   errorMessage: string = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private bankAccountsService: BankAccountsService,  private transactionService: TransactionService, private categoryService: CategoryService) {
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private bankAccountsService: BankAccountsService,  
+    private transactionService: TransactionService, private categoryService: CategoryService) {
     this.transactionForm = this.fb.group({
       categoryID: ['', Validators.required],
       type: ['', Validators.required],
