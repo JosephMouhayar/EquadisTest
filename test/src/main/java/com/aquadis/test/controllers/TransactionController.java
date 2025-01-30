@@ -3,6 +3,10 @@ package com.aquadis.test.controllers;
 import com.aquadis.test.dto.TransactionDto;
 import com.aquadis.test.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +24,15 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    // Endpoint to get all transactions for a given bank account
     @GetMapping("/getTransactions/{bankAccountID}")
-    public ResponseEntity<List<TransactionDto>> getTransactions(@PathVariable long bankAccountID) {
-        List<TransactionDto> transactions = transactionService.getTransactionsByBankAccount(bankAccountID);
+    public ResponseEntity<Page<TransactionDto>> getTransactions(
+            @PathVariable long bankAccountID,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "createdAt") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDir) {
+
+        Page<TransactionDto> transactions = transactionService.getTransactionsByBankAccount(bankAccountID, page, size, sortBy, sortDir);
         return ResponseEntity.ok(transactions);
     }
 

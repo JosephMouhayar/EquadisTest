@@ -8,6 +8,10 @@ import com.aquadis.test.entity.Category;
 import com.aquadis.test.repository.BankAccountRepository;
 import com.aquadis.test.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,13 +33,15 @@ public class TransactionService {
         this.categoryRepository = categoryRepository;
     }
 
-    // Retrieve all transactions for a specific bank account
-    public List<TransactionDto> getTransactionsByBankAccount(long bankAccountID) {
-        List<Transaction> transactions = transactionRepository.findByBankAccount_BankAccountID(bankAccountID);
-        return transactions.stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
+    public Page<TransactionDto> getTransactionsByBankAccount(long bankAccountID, int page, int size, String sortBy, String sortDir) {
+        Sort sort = Sort.by(sortDir.equalsIgnoreCase("desc") ? Sort.Order.desc(sortBy) : Sort.Order.asc(sortBy));
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Transaction> transactionsPage = transactionRepository.findByBankAccount_BankAccountID(bankAccountID, pageable);
+
+        return transactionsPage.map(this::convertToDto);
     }
+
 
     // Add a new transaction and update bank account balance
     public TransactionDto addTransaction(TransactionDto transactionDto) {

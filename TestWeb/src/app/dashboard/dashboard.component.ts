@@ -8,6 +8,7 @@ import { BankAccountsService } from '../service/bankAccounts.service';
 import { TransactionService } from '../service/transactions.service';
 import { CategoryService } from '../service/categories.service';
 
+
 interface Bank {
   bankAccountID: number;
   amount: number;
@@ -44,6 +45,11 @@ export class DashboardComponent implements OnInit {
   transactionForm: FormGroup;
 
   categories: any[] = [];
+
+  // Pagination
+  totalPages: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 5; // Number of transactions per page
 
   errorMessage: string = '';
 
@@ -140,20 +146,29 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // Fetch transactions for the current bank account
-  loadTransactions(): void {
+  // Load the selected Bank Account Transactions
+  loadTransactions(page: number = 0): void {
     if (this.selectedBank) {
-    this.transactionService.getTransactionsByBankAccount(this.selectedBank.bankAccountID)
-      .subscribe({
-        next: (data) => {
-          if(this.selectedBank) {
-            this.selectedBank.transactions = data;
+      this.transactionService.getTransactionsByBankAccount(this.selectedBank.bankAccountID, page, this.pageSize, 'createdAt', 'desc')
+        .subscribe({
+          next: (data) => {
+            if (this.selectedBank) {
+              this.selectedBank.transactions = data.content; // Extract paginated transaction data
+              this.totalPages = data.totalPages;
+              this.currentPage = data.number;
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching transactions:', err);
           }
-        },
-        error: (err) => {
-          console.error('Error fetching transactions:', err);
-        }
-      });
+        });
+    }
+  }
+
+  // Change of Page for Transactions List Pagination
+  changePage(newPage: number): void {
+    if (newPage >= 0 && newPage < this.totalPages) {
+      this.loadTransactions(newPage);
     }
   }
 

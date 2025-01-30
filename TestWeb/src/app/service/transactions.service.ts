@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -23,15 +23,25 @@ export class TransactionService {
     });
   }
 
-  getTransactionsByBankAccount(bankAccountID: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}getTransactions/${bankAccountID}`, { headers: this.getHeaders() })
+  getTransactionsByBankAccount(bankAccountID: number, page: number, size: number, sortBy: string, sortDir: string): Observable<any> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sortBy', sortBy)
+      .set('sortDir', sortDir);
+  
+    // Add the headers to the request
+    const headers = this.getHeaders();
+  
+    return this.http.get<any>(`${this.apiUrl}getTransactions/${bankAccountID}`, { params, headers })
       .pipe(
         catchError(error => {
           console.error('Error fetching transactions:', error);
-          return throwError(() => error.error.message || 'Failed to fetch transactions');
+          return throwError(() => error);
         })
       );
   }
+  
 
   addTransaction(transaction: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}add`, transaction, { headers: this.getHeaders() })

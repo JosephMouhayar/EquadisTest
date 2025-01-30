@@ -59,25 +59,25 @@
         </form>
       </div>
 
+      <!-- Transaction List -->
       <div class="transaction-list">
-        <div *ngFor="let transaction of selectedBank?.transactions; let i = index" 
-             class="transaction-item"
-             [ngClass]="{'transaction-income': transaction.type === 'income', 
+        <div *ngFor="let transaction of selectedBank?.transactions; let i = index " 
+            class="transaction-item"
+            [ngClass]="{'transaction-income': transaction.type === 'income', 
                         'transaction-expense': transaction.type === 'expense'}">
           <div class="transaction-details">
             <div class="transaction-category">
-              Transaction {{i+1}}
-              <span style="float: right;">Category: {{transaction.categoryName}}</span>
+              Transaction {{ i + 1 + currentPage * pageSize}}
+              <span style="float: right;">Category: {{ transaction.categoryName }}</span>
             </div>
             <hr style="margin: 8px 0; border: 0.5px solid rgba(0, 0, 0, 0.1);">
-            <!-- Added date display here -->
             <div class="transaction-date" style="font-size: 0.9em; color: rgba(0, 0, 0, 0.6); margin: 4px 0;">
-              Date: {{transaction.createdAt | date:'medium'}}
+              Date: {{ transaction.createdAt | date:'medium' }}
             </div>
             <hr style="margin: 8px 0; border: 0.5px solid rgba(0, 0, 0, 0.1);">
             <div class="transaction-type">
-              Type: {{transaction.type}}
-              <span style="float: right;">Amount: ${{transaction.amount}}</span>
+              Type: {{ transaction.type }}
+              <span style="float: right;">Amount: ${{ transaction.amount }}</span>
             </div>
           </div>
           <button class="delete-button" (click)="deleteTransaction(transaction.transactionID)">
@@ -85,6 +85,13 @@
           </button>
         </div>
       </div>
+
+      <!-- Pagination Controls -->
+      <div class="pagination-controls" *ngIf="totalPages > 1">
+        <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+        <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+        <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages - 1">Next</button>
       </div>
+    </div>
   </main>
 </div>
